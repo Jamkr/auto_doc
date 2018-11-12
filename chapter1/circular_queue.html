@@ -1,0 +1,550 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>循环队列 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../chapter2/" />
+    
+    
+    <link rel="prev" href="link_queue_no_head_node.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Chapter1
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="how_to_achieve_queues.html">
+            
+                <a href="how_to_achieve_queues.html">
+            
+                    
+                    队列的原理和认识
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="link_queue_with_head_node.html">
+            
+                <a href="link_queue_with_head_node.html">
+            
+                    
+                    带头结点的队列
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="link_queue_no_head_node.html">
+            
+                <a href="link_queue_no_head_node.html">
+            
+                    
+                    不带头结点的队列
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.4" data-path="circular_queue.html">
+            
+                <a href="circular_queue.html">
+            
+                    
+                    循环队列
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../chapter2/">
+            
+                <a href="../chapter2/">
+            
+                    
+                    Chapter2
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >循环队列</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x5FAA;&#x73AF;&#x961F;&#x5217;">&#x5FAA;&#x73AF;&#x961F;&#x5217;</h1>
+<blockquote>
+<h2 id="&#x6982;&#x5FF5;">&#x6982;&#x5FF5;</h2>
+</blockquote>
+<p>&#x60F3;&#x8981;&#x4E86;&#x89E3;&#x4E00;&#x4E2A;&#x6982;&#x5FF5;&#xFF0C;&#x9996;&#x5148;&#x8981;&#x5BF9;&#x6982;&#x5FF5;&#x6709;&#x4E00;&#x4E2A;&#x7406;&#x6027;&#x7684;&#x8BA4;&#x8BC6;&#x3002;&#x6BD4;&#x5982;&#x5FAA;&#x73AF;&#x961F;&#x5217;&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x53EB;&#x5FAA;&#x73AF;&#x961F;&#x5217;&#xFF0C;&#x524D;&#x9762;&#x7684;&#x6587;&#x7AE0;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x4E00;&#x76F4;&#x8BF4;&#x961F;&#x5217;&#x662F;&#x7AD9;&#x961F;&#xFF0C;&#x662F;&#x6392;&#x961F;&#x3002;&#x90A3;&#x4E48;&#x5FAA;&#x73AF;&#x961F;&#x5217;&#x548C;&#x524D;&#x9762;&#x6240;&#x8BF4;&#x7684;&#x961F;&#x5217;&#x6709;&#x4EC0;&#x4E48;&#x4E0D;&#x4E00;&#x6837;&#x5462;&#xFF1F;&#x5FAA;&#x73AF;&#x961F;&#x5217;&#x662F;&#x4E3A;&#x4E86;&#x89E3;&#x51B3;&#x4EC0;&#x4E48;&#x95EE;&#x9898;&#x800C;&#x5B58;&#x5728;&#x7684;&#x5462;&#xFF1F;&#x8BF4;&#x5230;&#x8FD9;&#x91CC;&#xFF0C;&#x5927;&#x5BB6;&#x662F;&#x4E0D;&#x662F;&#x4E5F;&#x548C;&#x6211;&#x4E00;&#x6837;&#x6709;&#x7591;&#x95EE;&#x5462;&#xFF1F;</p>
+<p>&#x597D;&#xFF0C;&#x90A3;&#x6211;&#x4EEC;&#x5C31;&#x5148;&#x6765;&#x770B;&#x770B;&#x5FAA;&#x73AF;&#x961F;&#x5217;&#x548C;&#x4E4B;&#x524D;&#x8BF4;&#x7684;&#x961F;&#x5217;&#x6709;&#x4EC0;&#x4E48;&#x5173;&#x7CFB;&#x3002;&#x5982;&#x4E0B;&#x56FE;&#xFF1A;</p>
+<p><img src="http://on-img.com/chart_image/5ba42896e4b0fe81b640c151.png?_=1537488325953" alt="&#x5FAA;&#x73AF;&#x961F;&#x5217;"></p>
+<p>&#x5982;&#x56FE;&#x6240;&#x793A;&#xFF0C;&#x5FAA;&#x73AF;&#x961F;&#x5217;&#x662F;&#x4E3A;&#x4E86;&#x89E3;&#x51B3;&#x961F;&#x5217;&#x7684;&#x5047;&#x6EA2;&#x51FA;&#x95EE;&#x9898;&#xFF0C;&#x628A;&#x961F;&#x5217;&#x7684;&#x9996;&#x5148;&#x8FDE;&#x8D77;&#x6765;&#xFF0C;&#x4F7F;&#x961F;&#x5217;&#x5728;&#x903B;&#x8F91;&#x4E0A;&#x6210;&#x4E3A;&#x4E86;&#x4E00;&#x4E2A;&#x73AF;&#x5F62;&#xFF0C;&#x6240;&#x4EE5;&#x53EB;&#x5FAA;&#x73AF;&#x961F;&#x5217;&#x3002;</p>
+<blockquote>
+<h2 id="&#x5FAA;&#x73AF;&#x961F;&#x5217;&#x7684;&#x5B9E;&#x73B0;">&#x5FAA;&#x73AF;&#x961F;&#x5217;&#x7684;&#x5B9E;&#x73B0;</h2>
+</blockquote>
+<p>&#x5B9E;&#x73B0;&#x5FAA;&#x73AF;&#xFF0C;&#x901A;&#x5E38;&#x4F7F;&#x7528;&#x6570;&#x7EC4;&#x6765;&#x5B9E;&#x73B0;&#xFF0C;&#x53E6;&#x5916;&#x6709;&#x4E00;&#x70B9;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x5FAA;&#x73AF;&#x961F;&#x5217;&#x7684;&#x7A7A;&#x548C;&#x6E80;&#x7684;&#x5904;&#x7406;&#x3002;&#x4E3A;&#x4EC0;&#x4E48;&#x8FD9;&#x4E48;&#x8BF4;&#x5462;&#xFF0C;&#x961F;&#x5217;&#x548C;&#x5B9E;&#x73B0;&#x901A;&#x5E38;&#x90FD;&#x6709;&#x4E00;&#x4E2A;&#x5934;&#x6307;&#x9488;&#x548C;&#x4E00;&#x4E2A;&#x5C3E;&#x6307;&#x9488;&#xFF0C;&#x5BF9;&#x4E8E;&#x5FAA;&#x73AF;&#x961F;&#x5217;&#x6765;&#x8BF4;&#x4E5F;&#x4E00;&#x6837;&#xFF0C;&#x4F46;&#x662F;&#xFF0C;&#x5FAA;&#x73AF;&#x961F;&#x5217;&#x7A7A;&#x548C;&#x6E80;&#x65F6;&#xFF0C;&#x5934;&#x5C3E;&#x6307;&#x9488;&#x90FD;&#x91CD;&#x5408;&#x5728;&#x4E00;&#x8D77;&#xFF0C;&#x8FD9;&#x5C31;&#x9700;&#x8981;&#x6211;&#x4EEC;&#x5BF9;&#x5FAA;&#x73AF;&#x961F;&#x5217;&#x7684;&#x5934;&#x5C3E;&#x6307;&#x9488;&#x8981;&#x505A;&#x7279;&#x6B8A;&#x5BF9;&#x5F85;&#x4E86;&#x3002;</p>
+<ol>
+<li>&#x53EF;&#x4EE5;&#x5BF9;&#x961F;&#x5217;&#x5143;&#x7D20;&#x4E2A;&#x6570;&#x8FDB;&#x884C;&#x8BA1;&#x6570;&#xFF0C;&#x90A3;&#x4E48;&#xFF0C;&#x6211;&#x4EEC;&#x5C31;&#x53EF;&#x4EE5;&#x5224;&#x65AD;&#xFF0C;&#x5F53;&#x5143;&#x7D20;&#x4E2A;&#x6570;&#x4E0D;&#x7B49;&#x4E8E;0,&#x4E14;&#x5934;&#x5C3E;&#x6307;&#x9488;&#x91CD;&#x5408;&#x65F6;&#x961F;&#x5217;&#x4E3A;&#x6E80;&#x3002;&#x5F53;&#x5143;&#x7D20;&#x4E2A;&#x6570;&#x4E3A;0&#x65F6;&#x961F;&#x5217;&#x4E3A;&#x7A7A;&#x3002;   </li>
+<li>&#x9884;&#x7559;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x7A7A;&#x95F4;&#x4E0D;&#x7528;&#xFF0C;&#x90A3;&#x4E48;&#xFF0C;&#x5F53;&#x5C3E;&#x6307;&#x9488;+1&#x7B49;&#x4E8E;&#x5934;&#x6307;&#x9488;&#x65F6;&#x5C31;&#x53EF;&#x4EE5;&#x5224;&#x65AD;&#x961F;&#x5217;&#x4E3A;&#x6E80;&#x3002;</li>
+</ol>
+<p>&#x8BF4;&#x4E86;&#x8FD9;&#x4E48;&#x591A;&#xFF0C;&#x90A3;&#x5FAA;&#x73AF;&#x961F;&#x5217;&#x5230;&#x5E95;&#x662F;&#x8BE5;&#x600E;&#x4E48;&#x62BD;&#x8C61;&#x5462;&#xFF1F;&#x5F80;&#x4E0B;&#x770B;</p>
+<pre><code class="lang-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> MAX_Q_SIZE 6</span>
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">int</span> <span class="hljs-keyword">data_t</span>;
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> {
+    <span class="hljs-keyword">data_t</span> data[MAX_Q_SIZE];
+    <span class="hljs-keyword">int</span> rear;
+    <span class="hljs-keyword">int</span> front;
+    <span class="hljs-keyword">int</span> count;
+}circular_queue;
+</code></pre>
+<p>&#x4F7F;&#x7528;&#x6570;&#x7EC4;&#x5B9E;&#x73B0;&#x7684;&#x5FAA;&#x73AF;&#x961F;&#x5217;&#xFF0C;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x8BA1;&#x6570;&#x5668;(count),&#x65B9;&#x4FBF;&#x5224;&#x65AD;&#x961F;&#x5217;&#x6E80;&#x7684;&#x60C5;&#x51B5;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5FAA;&#x73AF;&#x961F;&#x5217;&#x7684;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#xFF1A;</p>
+<pre><code class="lang-c"><span class="hljs-comment">/* &#x521D;&#x59CB;&#x5316; */</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">init_queue</span><span class="hljs-params">(circular_queue *q)</span>
+</span>{
+    <span class="hljs-comment">//&#x521D;&#x59CB;&#x5316;&#x961F;&#x5217;&#x7684;&#x76F8;&#x5173;&#x53C2;&#x6570;</span>
+    q-&gt;front = <span class="hljs-number">0</span>;
+    q-&gt;rear = <span class="hljs-number">0</span>;
+    q-&gt;count = <span class="hljs-number">0</span>;
+
+    <span class="hljs-comment">//&#x56E0;&#x4E3A;&#x662F;&#x6570;&#x7EC4;&#x5B9E;&#x73B0;&#xFF0C;&#x6240;&#x4EE5;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5BF9;&#x5143;&#x7D20;&#x6570;&#x7EC4;&#x8FDB;&#x884C;&#x521D;&#x59CB;&#x5316;</span>
+    <span class="hljs-built_in">memset</span>(q-&gt;data, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(q-&gt;data));
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+
+<span class="hljs-comment">/* &#x5165;&#x961F; */</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">enqueue</span><span class="hljs-params">(circular_queue *q, data_t e)</span>
+</span>{
+    <span class="hljs-comment">//&#x5224;&#x65AD;&#x4E3A;&#x6E80;&#xFF0C;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#xFF0C;&#x65E0;&#x6CD5;&#x5165;&#x961F;</span>
+    <span class="hljs-keyword">if</span>(q-&gt;count &gt; <span class="hljs-number">0</span> &amp;&amp; q-&gt;rear == q-&gt;front) {
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s: the queue is full, can not enqueue\n&quot;</span>, __func__);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+    }
+
+    <span class="hljs-comment">//&#x7ED9;&#x65B0;&#x7ED3;&#x70B9;&#x7684;&#x6570;&#x636E;&#x57DF;&#x8D4B;&#x503C;</span>
+    q-&gt;data[q-&gt;rear] = e;
+
+    <span class="hljs-comment">//&#x79FB;&#x52A8;&#x961F;&#x5C3E;&#x6307;&#x9488;</span>
+    q-&gt;rear = (q-&gt;rear + <span class="hljs-number">1</span>) % MAX_Q_SIZE;   <span class="hljs-comment">//&#x8FD9;&#x4E2A;&#x64CD;&#x4F5C;&#x662F;&#x5B9E;&#x73B0;&#x5FAA;&#x73AF;&#x961F;&#x5217;&#x7684;&#x5173;&#x952E;&#xFF0C;&#x4E00;&#x5B9A;&#x8981;&#x89E3;&#x7406;&#x4E86;</span>
+
+    <span class="hljs-comment">//&#x8BA1;&#x6570;&#x5668;+1</span>
+    q-&gt;count++;
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+
+<span class="hljs-comment">/* &#x51FA;&#x961F; */</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">dequeue</span><span class="hljs-params">(circular_queue *q, data_t *e)</span>
+</span>{
+    <span class="hljs-comment">//&#x5224;&#x65AD;&#x961F;&#x5217;&#x4E3A;&#x7A7A;&#xFF0C;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#xFF0C;&#x65E0;&#x6CD5;&#x51FA;&#x961F;</span>
+    <span class="hljs-keyword">if</span>(q-&gt;count == <span class="hljs-number">0</span>) {
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s: the queue is empty, can not dequeue\n&quot;</span>, __func__);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+    }
+
+    <span class="hljs-comment">//&#x5E26;&#x51FA;&#x8981;&#x51FA;&#x961F;&#x7ED3;&#x70B9;&#x7684;&#x503C;&#x57DF;&#x3002;</span>
+    *e = q-&gt;data[q-&gt;front];
+
+    <span class="hljs-comment">//&#x79FB;&#x52A8;&#x5BF9;&#x5934;&#x6307;&#x9488;</span>
+    q-&gt;front = (q-&gt;front + <span class="hljs-number">1</span>) % MAX_Q_SIZE;
+
+    <span class="hljs-comment">//&#x8BA1;&#x6570;&#x5668;-1</span>
+    q-&gt;count--;
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+
+<span class="hljs-comment">/* &#x8BFB;&#x53D6;&#x961F;&#x5934;&#x5143;&#x7D20; */</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">get_head</span><span class="hljs-params">(circular_queue *q, data_t *e)</span>
+</span>{
+    <span class="hljs-comment">//&#x5224;&#x65AD;&#x961F;&#x5217;&#x4E3A;&#x7A7A;&#xFF0C;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#xFF0C;&#x6CA1;&#x6709;&#x5143;&#x7D20;&#x53EF;&#x4EE5;&#x83B7;&#x53D6;</span>
+    <span class="hljs-keyword">if</span>(q-&gt;count == <span class="hljs-number">0</span>) {
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s: the queue is empty, can not dequeue\n&quot;</span>, __func__);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+    }
+
+    <span class="hljs-comment">//&#x5E26;&#x51FA;&#x961F;&#x5934;&#x5143;&#x7D20;&#x7684;&#x503C;&#x57DF;</span>
+    *e = q-&gt;data[q-&gt;front];
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+
+<span class="hljs-comment">/* &#x6C42;&#x961F;&#x5217;&#x957F;&#x5EA6; */</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">count_queue_len</span><span class="hljs-params">(circular_queue *q)</span>
+</span>{
+    <span class="hljs-comment">//&#x8FD4;&#x56DE;&#x961F;&#x5217;&#x7684;&#x957F;&#x5EA6;</span>
+    <span class="hljs-keyword">return</span> q-&gt;count;
+}
+
+<span class="hljs-comment">/* &#x5224;&#x65AD;&#x961F;&#x5217;&#x4E3A;&#x7A7A; */</span>
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">is_queue_empty</span><span class="hljs-params">(circular_queue *q)</span>
+</span>{
+    <span class="hljs-comment">//&#x901A;&#x8FC7;&#x8BA1;&#x6570;&#x5668;&#x5224;&#x65AD;&#x961F;&#x5217;&#x4E3A;&#x7A7A;&#xFF1F;</span>
+    <span class="hljs-keyword">return</span> q-&gt;count == <span class="hljs-number">0</span> ? <span class="hljs-literal">true</span> : <span class="hljs-literal">false</span>;
+}
+
+<span class="hljs-comment">/* &#x9500;&#x6BC1;&#x961F;&#x5217; */</span>
+<span class="hljs-comment">//&#x9759;&#x6001;&#x6570;&#x636E;&#x7684;&#x5185;&#x5B58;&#x4E0D;&#x9700;&#x8981;&#x91CA;&#x653E;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x6E05;&#x9664;&#x76F8;&#x5173;&#x7684;&#x6570;&#x636E;&#x5373;&#x53EF;</span>
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">destroy_queue</span><span class="hljs-params">(circular_queue *q)</span>
+</span>{
+    <span class="hljs-keyword">if</span>(q-&gt;count == <span class="hljs-number">0</span>) {
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s: the queue is empty, no need to destory\n&quot;</span>, __func__);
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+
+    q-&gt;front = q-&gt;rear = q-&gt;count = <span class="hljs-number">0</span>;
+    <span class="hljs-built_in">memset</span>(q-&gt;data, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(q-&gt;data));
+
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+}
+</code></pre>
+<p>&#x6D4B;&#x8BD5;&#x7A0B;&#x5E8F;&#xFF1A;</p>
+<pre><code class="lang-c"><span class="hljs-comment">//#define NO_HEAD_NODE</span>
+<span class="hljs-comment">// #define WITH_HEAD_NODE</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> CIRCULAR_Q</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">ifdef</span> NO_HEAD_NODE</span>
+    <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-string">&quot;queue_no_head_node.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">ifdef</span> WITH_HEAD_NODE</span>
+    <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-string">&quot;queue_with_head_node.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">ifdef</span> CIRCULAR_Q</span>
+    <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-string">&quot;circular_queue.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-string">&quot;stdio.h&quot;</span></span>
+
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span> CIRCULAR_Q</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print_queue</span><span class="hljs-params">(link_queue *q)</span>
+</span>{
+    link_node *ptrav;
+    <span class="hljs-keyword">if</span>(q-&gt;front == <span class="hljs-literal">NULL</span>) {
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s: it is a empty link queue\n&quot;</span>, __func__);
+        <span class="hljs-keyword">return</span>;
+    }
+    ptrav = q-&gt;front;
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s: elem &quot;</span>, __func__);
+    <span class="hljs-keyword">while</span>(ptrav) {
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;[%d] &quot;</span>, ptrav-&gt;data);
+        ptrav = ptrav-&gt;next;;
+    }
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n&quot;</span>);
+    <span class="hljs-keyword">return</span>;
+}
+<span class="hljs-meta">#<span class="hljs-meta-keyword">else</span></span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print_queue</span><span class="hljs-params">(circular_queue *q)</span>
+</span>{
+    <span class="hljs-keyword">if</span>(q-&gt;count == <span class="hljs-number">0</span>) {
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s: it is a empty circular queue\n&quot;</span>, __func__);
+        <span class="hljs-keyword">return</span>;
+    }
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s: elem &quot;</span>, __func__);
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; ((i+<span class="hljs-number">1</span>) % MAX_Q_SIZE) != q-&gt;rear; i++) {
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;[%d] &quot;</span>, q-&gt;data[i]);
+    }
+
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n&quot;</span>);
+    <span class="hljs-keyword">return</span>;
+}
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span>
+</span>{
+<span class="hljs-meta">#<span class="hljs-meta-keyword">ifdef</span> NO_HEAD_NODE</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s: Start no head node queue test\n&quot;</span>, __func__);
+<span class="hljs-meta">#<span class="hljs-meta-keyword">elif</span>  WITH_HEAD_NODE</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s: Start has head node queue test\n&quot;</span>, __func__);
+<span class="hljs-meta">#<span class="hljs-meta-keyword">else</span></span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s: Start circular queue test\n&quot;</span>, __func__);
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">ifdef</span> CIRCULAR_Q</span>
+    circular_queue test_queue;
+<span class="hljs-meta">#<span class="hljs-meta-keyword">else</span></span>
+    link_queue test_queue;
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span>
+    <span class="hljs-keyword">int</span> elem, i;
+    <span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>;
+
+    <span class="hljs-comment">/* init */</span>
+    init_queue(&amp;test_queue);
+
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;after init, the queue is %s empty\n&quot;</span>, is_queue_empty(&amp;test_queue) ? <span class="hljs-string">&quot;&quot;</span> :<span class="hljs-string">&quot;not&quot;</span>);
+
+    <span class="hljs-comment">/* equeue */</span>
+    <span class="hljs-keyword">data_t</span> <span class="hljs-built_in">array</span>[] = {<span class="hljs-number">12</span>, <span class="hljs-number">23</span> , <span class="hljs-number">5</span>, <span class="hljs-number">9</span>, <span class="hljs-number">17</span>};
+    <span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++) {
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s: equeue [%d]\n&quot;</span>, __func__,  <span class="hljs-built_in">array</span>[i]);
+        enqueue(&amp;test_queue, <span class="hljs-built_in">array</span>[i]);
+        print_queue(&amp;test_queue);
+    }
+
+    <span class="hljs-comment">/* deqeue */</span>
+    <span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">4</span>; i++) {
+        dequeue(&amp;test_queue, &amp;elem);
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s: dequeue [%d] elem is[%d] \n&quot;</span>, __func__, ++j, elem);
+
+        enqueue(&amp;test_queue, i+<span class="hljs-number">30</span>);
+    }
+
+    <span class="hljs-comment">//after dequeue some elements</span>
+    print_queue(&amp;test_queue);
+
+    <span class="hljs-comment">/* destory queue */</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s: destory the queue\n&quot;</span>, __func__);
+    destroy_queue(&amp;test_queue);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;after destory, the queue is %s empty\n&quot;</span>, is_queue_empty(&amp;test_queue) ? <span class="hljs-string">&quot;&quot;</span> :<span class="hljs-string">&quot;not&quot;</span>);
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</code></pre>
+<blockquote>
+<h2 id="&#x76F8;&#x5173;&#x9605;&#x8BFB;">&#x76F8;&#x5173;&#x9605;&#x8BFB;</h2>
+</blockquote>
+<p><a href="http://lircs.com/268.html" target="_blank">[&#x6570;&#x636E;&#x7ED3;&#x6784;] &#x961F;&#x5217;&#x7684;&#x539F;&#x7406;&#x548C;&#x8BA4;&#x8BC6;</a><br><a href="http://lircs.com/271.html" target="_blank">[&#x6570;&#x636E;&#x7ED3;&#x6784;] &#x4E0D;&#x5E26;&#x5934;&#x7ED3;&#x70B9;&#x7684;&#x961F;&#x5217;</a><br><a href="http://lircs.com/272.html" target="_blank">[&#x6570;&#x636E;&#x7ED3;&#x6784;] &#x5E26;&#x5934;&#x7ED3;&#x70B9;&#x7684;&#x961F;&#x5217;</a>   </p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="link_queue_no_head_node.html" class="navigation navigation-prev " aria-label="Previous page: 不带头结点的队列">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../chapter2/" class="navigation navigation-next " aria-label="Next page: Chapter2">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"循环队列","level":"1.2.4","depth":2,"next":{"title":"Chapter2","level":"1.3","depth":1,"path":"chapter2/README.md","ref":"chapter2/README.md","articles":[]},"previous":{"title":"不带头结点的队列","level":"1.2.3","depth":2,"path":"chapter1/link_queue_no_head_node.md","ref":"chapter1/link_queue_no_head_node.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter1/circular_queue.md","mtime":"2018-11-12T23:37:03.094Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-11-12T23:38:27.492Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
